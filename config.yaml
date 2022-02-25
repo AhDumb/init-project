@@ -1,0 +1,9 @@
+c:
+  git: true
+  dirs: build
+  files: README.md main.cpp
+java:
+  git: false
+  dirs: out src
+  files: README.md src/Main.java
+
