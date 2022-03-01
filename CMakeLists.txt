@@ -19,9 +19,12 @@ add_executable(
   ${ALL_SRCS}
   )
 
+
 target_link_libraries(code
   ${YAMLCPP_LIBRARIES} # 将yaml-cpp库连接到yaml_demo可执行文件中
+  fmt
   )
+
 
 install(TARGETS code
   RUNTIME DESTINATION bin  # 可执行文件安装路径

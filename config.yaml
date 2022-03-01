@@ -1,3 +1,6 @@
+os:
+  edit: nvim
+
 c:
   git: true
   dirs: build

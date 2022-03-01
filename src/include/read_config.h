@@ -13,3 +13,6 @@ string get_dirs(const string& lang);
 
 /* 获取Git状态 */
 bool get_git(const string& lang);
+
+/* 获取编辑器 */
+string get_edit();

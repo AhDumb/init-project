@@ -7,11 +7,13 @@
  * @desc 读取配置文件
  */
 
-#include "read_config.h"
-#include "yaml-cpp/yaml.h"
+#include "include/read_config.h"
+#include <cstdlib>
+#include <fmt/color.h>
 #include <iostream>
 #include <string>
 #include <yaml-cpp/exceptions.h>
+#include <yaml-cpp/yaml.h>
 
 using namespace std;
 
@@ -20,13 +22,22 @@ string get_files(const string& lang)
 {
   try {
     YAML::Node config = YAML::LoadFile(CONFIG_PATH);
-    if ( config[lang].IsDefined() ) {
+    if (config[lang].IsDefined()) {
       return config[lang]["files"].as<string>();
     } else {
-      return "为配置 " + lang + " 语言";
+      fmt::print(
+          fg(fmt::color::steel_blue),
+          "为配置 {} 模板 \n", lang);
+      fmt::print(
+          fg(fmt::color::green),
+          "配置文件在 ~/.config/init-project/config.yaml\n");
+      exit(EXIT_SUCCESS);
     }
   } catch (const YAML::Exception& e) {
-    return "配置文件异常";
+    fmt::print(
+        fg(fmt::color::crimson) | fmt::emphasis::bold,
+        "配置文件异常\n");
+    exit(EXIT_SUCCESS);
   }
 }
 
@@ -35,27 +46,57 @@ string get_dirs(const string& lang)
 {
   try {
     YAML::Node config = YAML::LoadFile(CONFIG_PATH);
-    if ( config[lang].IsDefined() ) {
+    if (config[lang].IsDefined()) {
       return config[lang]["dirs"].as<string>();
     } else {
-      return "为配置 " + lang + " 语言";
+      fmt::print(
+          fg(fmt::color::steel_blue),
+          "为配置 {}\n", lang);
+      fmt::print(
+          fg(fmt::color::green),
+          "配置文件在 ~/.config/init-project/config.yaml\n");
+      exit(EXIT_SUCCESS);
     }
-  } catch ( const YAML::Exception& e ) {
-    return "配置文件异常";
+  } catch (const YAML::Exception& e) {
+    fmt::print(
+        fg(fmt::color::crimson) | fmt::emphasis::bold,
+        "配置文件异常\n");
+    exit(EXIT_SUCCESS);
   }
 }
 
 /* 获取Git状态 */
-bool get_git(const string &lang)
+bool get_git(const string& lang)
 {
   try {
     YAML::Node config = YAML::LoadFile(CONFIG_PATH);
-    if ( config[lang].IsDefined() ) {
+    if (config[lang].IsDefined()) {
       return config[lang]["git"].as<bool>();
     } else {
       return false;
     }
-  } catch ( const YAML::Exception& e ) {
-    return "配置文件异常";
+  } catch (const YAML::Exception& e) {
+    fmt::print(
+        fg(fmt::color::crimson) | fmt::emphasis::bold,
+        "配置文件异常");
+    exit(EXIT_SUCCESS);
+  }
+}
+
+/* 获取编辑器 */
+string get_edit()
+{
+  try {
+    YAML::Node config = YAML::LoadFile(CONFIG_PATH);
+    if (config["os"]["edit"].IsDefined()) {
+      return config["os"]["edit"].as<string>();
+    } else {
+      return "vim";
+    }
+  } catch (const YAML::Exception& e) {
+    fmt::print(
+        fg(fmt::color::crimson) | fmt::emphasis::bold,
+        "配置文件异常\n");
+    exit(EXIT_SUCCESS);
   }
 }
