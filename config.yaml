@@ -4,7 +4,11 @@ os:
 c:
   git: true
   dirs: build
-  files: README.md main.cpp
+  files: README.md main.c Makefile
+c++:
+  git: true
+  dirs: build
+  files: README.md main.cpp CMakeLists.txt
 java:
   git: false
   dirs: out src
