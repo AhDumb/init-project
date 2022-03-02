@@ -41,10 +41,11 @@ void get_out()
 
 int main(int argc, char** argv)
 {
-  // 把命令参数转成 string 型
-  string cmd = argv[1];
 
   if (argc == 2) {
+    // 把命令参数转成 string 型
+    string cmd = argv[1];
+
     if (cmd == LONG_CMD_INIT || cmd == SHORT_CMD_INIT) {
       get_out();
     } else if (cmd == LONG_CMD_EDIT || cmd == SHORT_CMD_EDIT) {
@@ -62,6 +63,9 @@ int main(int argc, char** argv)
         fg(fmt::color::ghost_white),
         "参数过多\n");
     exit(EXIT_SUCCESS);
+  } else {
+    fmt::print("请输入 code -help\n");
   }
+
   return EXIT_SUCCESS;
 }
